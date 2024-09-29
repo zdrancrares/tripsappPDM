@@ -17,7 +17,10 @@ Change log
 03 Define component state
 
 - React state hook, https://react.dev/reference/react/useState
-- React callbacks, https://react.dev/reference/react/useCallback
+
+04 Use memoization
+
 - React memoization,
     - https://react.dev/reference/react/useMemo
     - https://react.dev/reference/react/memo
+- React callbacks, https://react.dev/reference/react/useCallback
