@@ -32,17 +32,23 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import { ItemList } from './todo';
+import { ItemProvider } from './todo/ItemProvider';
+import ItemEdit from './todo/ItemEdit';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/items" component={ItemList} exact={true}/>
-        <Route exact path="/" render={() => <Redirect to="/items"/>}/>
-      </IonRouterOutlet>
-    </IonReactRouter>
+    <ItemProvider>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route path="/items" component={ItemList} exact={true}/>
+          <Route path="/item" component={ItemEdit} exact={true}/>
+          <Route path="/item/:id" component={ItemEdit} exact={true}/>
+          <Route exact path="/" render={() => <Redirect to="/items"/>}/>
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </ItemProvider>
   </IonApp>
 );
 

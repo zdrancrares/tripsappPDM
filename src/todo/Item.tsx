@@ -1,13 +1,19 @@
 import React, { memo } from 'react';
+import { IonItem, IonLabel } from '@ionic/react';
 import { getLogger } from '../core';
 import { ItemProps } from './ItemProps';
 
 const log = getLogger('Item');
 
-const Item: React.FC<ItemProps> = ({ id, text }) => {
-  log(`render ${text}`);
+interface ItemPropsExt extends ItemProps {
+  onEdit: (id?: string) => void;
+}
+
+const Item: React.FC<ItemPropsExt> = ({ id, text, onEdit }) => {
   return (
-    <div>{text}</div>
+    <IonItem onClick={() => onEdit(id)}>
+      <IonLabel>{text}</IonLabel>
+    </IonItem>
   );
 };
 
