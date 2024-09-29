@@ -34,3 +34,7 @@ Change log
 - Axios lib, https://github.com/axios/axios
 - Ionic list, https://ionicframework.com/docs/api/list
 - React effect hook, https://react.dev/reference/react/useEffect
+
+07 Use reducers to manage complex behaviour
+
+- React reducer hook, https://react.dev/reference/react/useReducer
