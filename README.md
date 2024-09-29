@@ -24,3 +24,7 @@ Change log
     - https://react.dev/reference/react/useMemo
     - https://react.dev/reference/react/memo
 - React callbacks, https://react.dev/reference/react/useCallback
+
+05 Extract the state from presentational components
+
+- React custom hooks, https://react.dev/learn/reusing-logic-with-custom-hooks
