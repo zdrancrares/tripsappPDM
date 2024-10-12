@@ -12,14 +12,14 @@ import {
   IonToolbar
 } from '@ionic/react';
 import { add } from 'ionicons/icons';
-import Item from './Item';
 import { getLogger } from '../core';
-import { ItemContext } from './ItemProvider';
+import { TripContext } from './TripProvider';
+import Trip from "./Trip";
 
-const log = getLogger('ItemList');
+const log = getLogger('TripList');
 
-const ItemList: React.FC<RouteComponentProps> = ({ history }) => {
-  const { items, fetching, fetchingError } = useContext(ItemContext);
+const TripList: React.FC<RouteComponentProps> = ({ history }) => {
+  const { trips, fetching, fetchingError } = useContext(TripContext);
   log('render');
   return (
     <IonPage>
@@ -30,17 +30,17 @@ const ItemList: React.FC<RouteComponentProps> = ({ history }) => {
       </IonHeader>
       <IonContent>
         <IonLoading isOpen={fetching} message="Fetching items" />
-        {items && (
+        {trips && (
           <IonList>
-            {items.map(({ id, text}) =>
-              <Item key={id} id={id} text={text} onEdit={id => history.push(`/item/${id}`)} />)}
+            {trips.map(({ id, destination, withCar, budget, date}) =>
+              <Trip key={id} id={id} destination={destination} withCar={withCar} budget={budget} date={date} onEdit={id => history.push(`/item/${id}`)} />)}
           </IonList>
         )}
         {fetchingError && (
-          <div>{fetchingError.message || 'Failed to fetch items'}</div>
+          <div>{fetchingError.message || 'Failed to fetch trips'}</div>
         )}
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => history.push('/item')}>
+          <IonFabButton onClick={() => history.push('/trip')}>
             <IonIcon icon={add} />
           </IonFabButton>
         </IonFab>
@@ -49,4 +49,4 @@ const ItemList: React.FC<RouteComponentProps> = ({ history }) => {
   );
 };
 
-export default ItemList;
+export default TripList;

@@ -31,24 +31,24 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import { ItemList } from './todo';
-import { ItemProvider } from './todo/ItemProvider';
-import ItemEdit from './todo/ItemEdit';
+import { TripProvider } from './todo/TripProvider';
+import TripEdit from './todo/TripEdit';
+import TripList from "./todo/TripList";
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
-    <ItemProvider>
+    <TripProvider>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route path="/items" component={ItemList} exact={true}/>
-          <Route path="/item" component={ItemEdit} exact={true}/>
-          <Route path="/item/:id" component={ItemEdit} exact={true}/>
+          <Route path="/items" component={TripList} exact={true}/>
+          <Route path="/item" component={TripEdit} exact={true}/>
+          <Route path="/item/:id" component={TripEdit} exact={true}/>
           <Route exact path="/" render={() => <Redirect to="/items"/>}/>
         </IonRouterOutlet>
       </IonReactRouter>
-    </ItemProvider>
+    </TripProvider>
   </IonApp>
 );
 

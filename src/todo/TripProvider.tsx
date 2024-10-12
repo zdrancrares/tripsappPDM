@@ -1,20 +1,20 @@
 import React, { useCallback, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { getLogger } from '../core';
-import { ItemProps } from './ItemProps';
-import { createItem, getItems, newWebSocket, updateItem } from './itemApi';
+import { TripProps } from './TripProps';
+import {createTrip, getTrips, newWebSocket, updateTrip} from './tripApi';
 
 const log = getLogger('ItemProvider');
 
-type SaveItemFn = (item: ItemProps) => Promise<any>;
+type SaveTripFn = (item: TripProps) => Promise<any>;
 
-export interface ItemsState {
-  items?: ItemProps[],
+export interface TripsState {
+  trips?: TripProps[],
   fetching: boolean,
   fetchingError?: Error | null,
   saving: boolean,
   savingError?: Error | null,
-  saveItem?: SaveItemFn,
+  saveTrip?: SaveTripFn,
 }
 
 interface ActionProps {
@@ -22,7 +22,7 @@ interface ActionProps {
   payload?: any,
 }
 
-const initialState: ItemsState = {
+const initialState: TripsState = {
   fetching: false,
   saving: false,
 };
@@ -34,7 +34,7 @@ const SAVE_ITEM_STARTED = 'SAVE_ITEM_STARTED';
 const SAVE_ITEM_SUCCEEDED = 'SAVE_ITEM_SUCCEEDED';
 const SAVE_ITEM_FAILED = 'SAVE_ITEM_FAILED';
 
-const reducer: (state: ItemsState, action: ActionProps) => ItemsState =
+const reducer: (state: TripsState, action: ActionProps) => TripsState =
   (state, { type, payload }) => {
     switch(type) {
       case FETCH_ITEMS_STARTED:
@@ -46,7 +46,7 @@ const reducer: (state: ItemsState, action: ActionProps) => ItemsState =
       case SAVE_ITEM_STARTED:
         return { ...state, savingError: null, saving: true };
       case SAVE_ITEM_SUCCEEDED:
-        const items = [...(state.items || [])];
+        const items = [...(state.trips || [])];
         const item = payload.item;
         const index = items.findIndex(it => it.id === item.id);
         if (index === -1) {
@@ -62,44 +62,44 @@ const reducer: (state: ItemsState, action: ActionProps) => ItemsState =
     }
   };
 
-export const ItemContext = React.createContext<ItemsState>(initialState);
+export const TripContext = React.createContext<TripsState>(initialState);
 
-interface ItemProviderProps {
+interface TripProviderProps {
   children: PropTypes.ReactNodeLike,
 }
 
-export const ItemProvider: React.FC<ItemProviderProps> = ({ children }) => {
+export const TripProvider: React.FC<TripProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { items, fetching, fetchingError, saving, savingError } = state;
-  useEffect(getItemsEffect, []);
+  const { trips, fetching, fetchingError, saving, savingError } = state;
+  useEffect(getTripsEffect, []);
   useEffect(wsEffect, []);
-  const saveItem = useCallback<SaveItemFn>(saveItemCallback, []);
-  const value = { items, fetching, fetchingError, saving, savingError, saveItem };
+  const saveItem = useCallback<SaveTripFn>(saveTripCallback, []);
+  const value = { trips, fetching, fetchingError, saving, savingError, saveItem };
   log('returns');
   return (
-    <ItemContext.Provider value={value}>
+    <TripContext.Provider value={value}>
       {children}
-    </ItemContext.Provider>
+    </TripContext.Provider>
   );
 
-  function getItemsEffect() {
+  function getTripsEffect() {
     let canceled = false;
-    fetchItems();
+    fetchTrips();
     return () => {
       canceled = true;
     }
 
-    async function fetchItems() {
+    async function fetchTrips() {
       try {
-        log('fetchItems started');
+        log('fetchTrips started');
         dispatch({ type: FETCH_ITEMS_STARTED });
-        const items = await getItems();
-        log('fetchItems succeeded');
+        const trips = await getTrips();
+        log('fetchTrips succeeded');
         if (!canceled) {
-          dispatch({ type: FETCH_ITEMS_SUCCEEDED, payload: { items } });
+          dispatch({ type: FETCH_ITEMS_SUCCEEDED, payload: { trips } });
         }
       } catch (error) {
-        log('fetchItems failed');
+        log('v failed');
         if (!canceled) {
           dispatch({ type: FETCH_ITEMS_FAILED, payload: { error } });
         }
@@ -107,15 +107,15 @@ export const ItemProvider: React.FC<ItemProviderProps> = ({ children }) => {
     }
   }
 
-  async function saveItemCallback(item: ItemProps) {
+  async function saveTripCallback(trip: TripProps) {
     try {
-      log('saveItem started');
+      log('saveTrip started');
       dispatch({ type: SAVE_ITEM_STARTED });
-      const savedItem = await (item.id ? updateItem(item) : createItem(item));
-      log('saveItem succeeded');
-      dispatch({ type: SAVE_ITEM_SUCCEEDED, payload: { item: savedItem } });
+      const savedTrip = await (trip.id ? updateTrip(trip) : createTrip(trip));
+      log('saveTrip succeeded');
+      dispatch({ type: SAVE_ITEM_SUCCEEDED, payload: { item: savedTrip } });
     } catch (error) {
-      log('saveItem failed');
+      log('saveTrip failed');
       dispatch({ type: SAVE_ITEM_FAILED, payload: { error } });
     }
   }

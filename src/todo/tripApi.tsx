@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { getLogger } from '../core';
-import { ItemProps } from './ItemProps';
+import { TripProps } from './TripProps';
+import trip from "./Trip";
 
-const log = getLogger('itemApi');
+const log = getLogger('tripApi');
 
 const baseUrl = 'localhost:3000';
-const itemUrl = `http://${baseUrl}/item`;
+const tripUrl = `http://${baseUrl}/trip`;
 
 interface ResponseProps<T> {
   data: T;
@@ -30,22 +31,22 @@ const config = {
   }
 };
 
-export const getItems: () => Promise<ItemProps[]> = () => {
-  return withLogs(axios.get(itemUrl, config), 'getItems');
+export const getTrips: () => Promise<TripProps[]> = () => {
+  return withLogs(axios.get(tripUrl, config), 'getTrips');
 }
 
-export const createItem: (item: ItemProps) => Promise<ItemProps[]> = item => {
-  return withLogs(axios.post(itemUrl, item, config), 'createItem');
+export const createTrip: (trip: TripProps) => Promise<TripProps[]> = trip => {
+  return withLogs(axios.post(tripUrl, trip, config), 'createTrip');
 }
 
-export const updateItem: (item: ItemProps) => Promise<ItemProps[]> = item => {
-  return withLogs(axios.put(`${itemUrl}/${item.id}`, item, config), 'updateItem');
+export const updateTrip: (trip: TripProps) => Promise<TripProps[]> = trip => {
+  return withLogs(axios.put(`${tripUrl}/${trip.id}`, trip, config), 'updateTrip');
 }
 
 interface MessageData {
   event: string;
   payload: {
-    item: ItemProps;
+    item: TripProps;
   };
 }
 
