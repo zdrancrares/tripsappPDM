@@ -42,10 +42,10 @@ const App: React.FC = () => (
     <TripProvider>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route path="/items" component={TripList} exact={true}/>
-          <Route path="/item" component={TripEdit} exact={true}/>
-          <Route path="/item/:id" component={TripEdit} exact={true}/>
-          <Route exact path="/" render={() => <Redirect to="/items"/>}/>
+          <Route path="/trips" component={TripList} exact={true}/>
+          <Route path="/trip" component={TripEdit} exact={true}/>
+          <Route path="/trip/:id" component={TripEdit} exact={true}/>
+          <Route exact path="/" render={() => <Redirect to="/trips"/>}/>
         </IonRouterOutlet>
       </IonReactRouter>
     </TripProvider>

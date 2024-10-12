@@ -3,7 +3,7 @@ import { IonItem, IonLabel } from '@ionic/react';
 import { getLogger } from '../core';
 import { TripProps } from './TripProps';
 
-const log = getLogger('Item');
+const log = getLogger('Trip');
 
 interface TripPropsExt extends TripProps {
   onEdit: (id?: string) => void;

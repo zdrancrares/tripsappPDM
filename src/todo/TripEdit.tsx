@@ -101,7 +101,7 @@ const TripEdit: React.FC<TripEditProps> = ({ history, match }) => {
 
         <IonLoading isOpen={saving} />
         {savingError && (
-          <div>{savingError.message || 'Failed to save item'}</div>
+          <div>{savingError.message || 'Failed to save trip'}</div>
         )}
       </IonContent>
     </IonPage>

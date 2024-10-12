@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { getLogger } from '../core';
 import { TripProps } from './TripProps';
-import trip from "./Trip";
 
 const log = getLogger('tripApi');
 
@@ -46,7 +45,7 @@ export const updateTrip: (trip: TripProps) => Promise<TripProps[]> = trip => {
 interface MessageData {
   event: string;
   payload: {
-    item: TripProps;
+    trip: TripProps;
   };
 }
 

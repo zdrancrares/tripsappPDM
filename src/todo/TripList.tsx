@@ -29,11 +29,11 @@ const TripList: React.FC<RouteComponentProps> = ({ history }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonLoading isOpen={fetching} message="Fetching items" />
+        <IonLoading isOpen={fetching} message="Fetching trips" />
         {trips && (
           <IonList>
             {trips.map(({ id, destination, withCar, budget, date}) =>
-              <Trip key={id} id={id} destination={destination} withCar={withCar} budget={budget} date={date} onEdit={id => history.push(`/item/${id}`)} />)}
+              <Trip key={id} id={id} destination={destination} withCar={withCar} budget={budget} date={date} onEdit={id => history.push(`/trip/${id}`)} />)}
           </IonList>
         )}
         {fetchingError && (

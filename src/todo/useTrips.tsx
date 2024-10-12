@@ -48,7 +48,7 @@ export const useTrips: () => TripsProps = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { trips, fetching, fetchingError } = state;
   const addTrip = useCallback(() => {
-    log('addItem - TODO');
+    log('addTrip - TODO');
   }, []);
   useEffect(getTripsEffect, [dispatch]);
   log(`returns - fetching = ${fetching}, trips = ${JSON.stringify(trips)}`);
@@ -61,12 +61,12 @@ export const useTrips: () => TripsProps = () => {
 
   function getTripsEffect() {
     let canceled = false;
-    fetchItems();
+    fetchTrips();
     return () => {
       canceled = true;
     }
 
-    async function fetchItems() {
+    async function fetchTrips() {
       try {
         log('fetchTrips started');
         dispatch({ type: FETCH_TRIPS_STARTED });
