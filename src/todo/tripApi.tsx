@@ -42,6 +42,10 @@ export const updateTrip: (trip: TripProps) => Promise<TripProps[]> = trip => {
   return withLogs(axios.put(`${tripUrl}/${trip.id}`, trip, config), 'updateTrip');
 }
 
+export const getTripById: (id: string) => Promise<TripProps> = id => {
+  return withLogs(axios.get<TripProps>(`${tripUrl}/${id}`, config), 'getTripById');
+};
+
 interface MessageData {
   event: string;
   payload: {
