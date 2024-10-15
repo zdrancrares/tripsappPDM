@@ -82,16 +82,11 @@ export const TripProvider: React.FC<TripProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { trips, fetching, fetchingError, saving, savingError } = state;
 
-  // Fetch trips when the provider mounts
   useEffect(getTripsEffect, []);
-
-  // Setup WebSocket for real-time updates
   useEffect(wsEffect, []);
 
-  // Save trip (create or update)
   const saveTrip = useCallback<SaveTripFn>(saveTripCallback, [dispatch]);
 
-  // Function to get a trip by ID
   const getTripById = useCallback<GetTripByIdFn>(
       (id: string) => {
         return trips?.find(trip => trip.id === id);
@@ -116,7 +111,6 @@ export const TripProvider: React.FC<TripProviderProps> = ({ children }) => {
       </TripContext.Provider>
   );
 
-  // Effect to fetch trips
   function getTripsEffect() {
     let canceled = false;
     fetchTrips();
@@ -130,7 +124,6 @@ export const TripProvider: React.FC<TripProviderProps> = ({ children }) => {
         dispatch({ type: FETCH_TRIPS_STARTED });
         const fetchedTrips = await getTrips();
 
-        // Convert date strings to Date objects
         const tripsWithDates: TripProps[] = fetchedTrips.map(trip => ({
           ...trip,
           date: trip.date ? new Date(trip.date) : null,
@@ -149,7 +142,6 @@ export const TripProvider: React.FC<TripProviderProps> = ({ children }) => {
     }
   }
 
-  // Callback to save trip
   async function saveTripCallback(trip: TripProps): Promise<void> {
     try {
       log('saveTrip started');
@@ -163,9 +155,9 @@ export const TripProvider: React.FC<TripProviderProps> = ({ children }) => {
         const tripWithDate: TripProps = {
           ...trip2,
           date: trip2.date ? new Date(trip2.date) : null,
-          withCar: trip2.withCar ?? false,       // Use nullish coalescing for default
-          budget: trip2.budget ?? 0,             // Use nullish coalescing for default
-          destination: trip2.destination ?? 'Unknown', // Use nullish coalescing for default
+          withCar: trip2.withCar ?? false,      
+          budget: trip2.budget ?? 0,            
+          destination: trip2.destination ?? 'Unknown',
         };
         log('saveTrip succeeded');
         dispatch({ type: SAVE_TRIP_SUCCEEDED, payload: { trip: tripWithDate } });
@@ -178,9 +170,7 @@ export const TripProvider: React.FC<TripProviderProps> = ({ children }) => {
       dispatch({ type: SAVE_TRIP_FAILED, payload: { error: error instanceof Error ? error.message : 'Unknown error' } });
     }
   }
-
-
-  // WebSocket effect for real-time updates
+  
   function wsEffect() {
     let canceled = false;
     log('wsEffect - connecting');
@@ -190,8 +180,7 @@ export const TripProvider: React.FC<TripProviderProps> = ({ children }) => {
       }
       const { event, payload: { trip } } = message;
       log(`ws message, trip ${event}`);
-
-      // Convert date string to Date object
+      
       const tripWithDate: TripProps = {
         ...trip,
         date: trip.date ? new Date(trip.date) : null,

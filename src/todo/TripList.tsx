@@ -14,7 +14,6 @@ import {
   IonLoading, IonButtons,
 } from '@ionic/react';
 import { TripContext } from './TripProvider';
-import { TripProps } from './TripProps';
 import { useHistory } from 'react-router-dom';
 
 const TripList: React.FC = () => {

@@ -46,16 +46,16 @@ const TripEdit: React.FC<TripEditProps> = ({ history, match }) => {
         withCarRef.current = foundTrip.withCar;
       }
     }
-  }, [match.params.id, trips]);
+  }, [match.params.id]);
 
-  useEffect(() => {
-    if (trip) {
-      destinationRef.current = trip.destination;
-      budgetRef.current = trip.budget;
-      dateRef.current = trip.date;
-      withCarRef.current = trip.withCar;
-    }
-  }, [trip]);
+  // useEffect(() => {
+  //   if (trip) {
+  //     destinationRef.current = trip.destination;
+  //     budgetRef.current = trip.budget;
+  //     dateRef.current = trip.date;
+  //     withCarRef.current = trip.withCar;
+  //   }
+  // }, [trip]);
 
   const handleSave = useCallback(() => {
     const formattedDate = dateRef.current ? new Date(dateRef.current) : new Date();

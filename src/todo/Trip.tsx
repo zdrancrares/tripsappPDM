@@ -12,7 +12,6 @@ interface TripPropsExt extends TripProps {
 }
 
 const Trip: React.FC<TripPropsExt> = ({ id, withCar, date, budget, destination, onEdit }) => {
-    // Safely format the date
     const formattedDate = date instanceof Date ? date.toLocaleDateString() : 'N/A';
 
     return (
