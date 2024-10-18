@@ -1,5 +1,3 @@
-// TripProvider.tsx
-
 import React, { useCallback, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { getLogger } from '../core';

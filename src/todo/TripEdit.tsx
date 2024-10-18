@@ -46,16 +46,7 @@ const TripEdit: React.FC<TripEditProps> = ({ history, match }) => {
         withCarRef.current = foundTrip.withCar;
       }
     }
-  }, [match.params.id]);
-
-  // useEffect(() => {
-  //   if (trip) {
-  //     destinationRef.current = trip.destination;
-  //     budgetRef.current = trip.budget;
-  //     dateRef.current = trip.date;
-  //     withCarRef.current = trip.withCar;
-  //   }
-  // }, [trip]);
+  }, [match.params.id, trips]);
 
   const handleSave = useCallback(() => {
     const formattedDate = dateRef.current ? new Date(dateRef.current) : new Date();
@@ -82,11 +73,11 @@ const TripEdit: React.FC<TripEditProps> = ({ history, match }) => {
         <IonContent>
           <IonInput
               placeholder="Enter the destination"
-              defaultValue={destinationRef.current}
+              value={destinationRef.current}
               onIonChange={e => destinationRef.current = e.detail.value || ''}
           />
           <IonItem>
-            <IonLabel>Date</IonLabel>
+            {/*<IonLabel>Date</IonLabel>*/}
             <IonDatetime
                 presentation="date"
                 value={dateRef.current ? dateRef.current.toISOString().split('T')[0] : ''}
@@ -108,7 +99,7 @@ const TripEdit: React.FC<TripEditProps> = ({ history, match }) => {
           <IonInput
               type="number"
               placeholder="Enter the budget for this trip"
-              defaultValue={budgetRef.current}
+              value={budgetRef.current}
               onIonChange={e => budgetRef.current = Number(e.detail.value) || 0}
           />
           <IonLoading isOpen={saving} />

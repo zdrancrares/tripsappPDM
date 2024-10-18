@@ -1,50 +1,10 @@
-Change log
+App features: 
 
-01 Create project
-
-- Ionic React quickstart, https://ionicframework.com/docs/react/quickstart
-- React components (App, Home), https://reactjs.org/docs/components-and-props.html
-- Ionic React navigation, https://ionicframework.com/docs/react/navigation
-- Ionic pages, https://ionicframework.com/docs/layout/structure
-
-02 Define a functional modular structure
-
-- Remove pages & components root modules
-- Add functional modules (e.g. 'todo')
-- Add pages and components into modules
-- React quick start, https://react.dev/learn
-
-03 Define component state
-
-- React state hook, https://react.dev/reference/react/useState
-
-04 Use memoization
-
-- React memoization,
-    - https://react.dev/reference/react/useMemo
-    - https://react.dev/reference/react/memo
-- React callbacks, https://react.dev/reference/react/useCallback
-
-05 Extract the state from presentational components
-
-- React custom hooks, https://react.dev/learn/reusing-logic-with-custom-hooks
-
-06 Fetch data from REST services
-
-- Axios lib, https://github.com/axios/axios
-- Ionic list, https://ionicframework.com/docs/api/list
-- React effect hook, https://react.dev/reference/react/useEffect
-
-07 Use reducers to manage complex behaviour
-
-- React reducer hook, https://react.dev/reference/react/useReducer
-
-08 Lift state up using context providers
-
-- Sharing state between components, https://react.dev/learn/sharing-state-between-components
-- Passing data deeply with context, https://react.dev/learn/passing-data-deeply-with-context
-- React use context hook, https://react.dev/reference/react/useContext
-
-09 Receive server-side notifications via web sockets
-
-- Writing web socket client apps, https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications
+  -> show a list of trips (an item having properties of the following types: numeric, string, date, boolean)
+  -> add or edit trips
+  -> authenticate user
+  -> provide offline support - persist data on the local storage
+  -> provide online support - synchronize data to/from a remote location
+  -> use external services - e.g. show map coordinates on google maps, or send an email using gmail
+  -> use local services - e.g. camera, sensors
+  -> use animations
